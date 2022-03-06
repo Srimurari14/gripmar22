@@ -1,7 +1,6 @@
 ---
 title: "Prediction using Supervised ML"
 author: "Srimurari"
-output: pdf_document
 ---
 
 ###                                               The Sparks Foundation
