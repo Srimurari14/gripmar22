@@ -1,0 +1,89 @@
+---
+title: "Prediction using Supervised ML"
+author: "Srimurari"
+output: pdf_document
+---
+
+###                                               The Sparks Foundation
+
+####                                          Task 1 - Prediction using Supervised ML
+
+####                                      Domain - Data Science and Business Analytics
+
+#### Objectives
+
+-   Predict the percentage of an student based on the no.of study hours.
+
+-   Predict score if a student studies for 9.25 hrs/day.
+
+Importing the required packages and data set.
+
+```{r}
+
+library(ggplot2)
+hs<-read.csv("http://bit.ly/w-data")
+```
+
+```{r}
+hs
+
+```
+
+```{r}
+head(hs)
+```
+
+Statistical Description of the Data set.
+
+```{r}
+summary(hs)
+```
+
+Structure of the data set
+
+```{r}
+str(hs)
+```
+
+In R, the lm(), or linear model, function can be used to create a simple regression model. For Simple linear regression, Y\~X where Y is dependent variable and X is Independent Variable.A linear model is used to predict the value of an unknown variable based on independent variables.
+
+```{r}
+m<-lm(hs$Scores~hs$Hours)
+m
+```
+
+The lm() returns the slope and intercept of the regression line, using those we can find predict the actual values.
+
+```{r}
+Scores1<-predict(m)
+Scores1
+```
+
+The predicted values are added to the data set.
+
+```{r}
+hs<-cbind(hs,Scores1)
+hs
+```
+
+Using ggplot(), we visualize the given data
+
+```{r}
+ggplot(hs)+aes(Hours,Scores)+geom_point(color='Red')+geom_smooth(formula=y~x,method=lm,se=TRUE)+
+  labs(title='Hours vs Scores',subtitle='TASK1',caption='Prediction using Supervised ML')
+
+```
+
+Predicting the student score when he/she studies for 9.25 hrs/day.
+
+```{r}
+x<-coef(m)
+intercept<-x[1]
+slope<-x[2]
+slope*9.25+intercept
+
+```
+
+#### Conclusion - 
+
+So the student will score 93 marks approximately when he/she studies for 9.25 hours per day.
